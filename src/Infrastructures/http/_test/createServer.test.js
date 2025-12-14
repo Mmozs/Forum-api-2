@@ -49,15 +49,6 @@ describe('HTTP server', () => {
   });
 });
 describe('when GET /', () => {
-    let server;
-
-    beforeEach(async () => {
-      server = await createServer({});
-   });
-
-    afterEach(async () => {
-      await server.stop(); // 🙌 Pastikan server berhenti setelah tiap test
-    });
     it('should return 200 and halo dunia', async () => {
       // Arrange
       const server = await createServer({});
