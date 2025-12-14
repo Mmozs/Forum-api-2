@@ -12,6 +12,22 @@ describe('a RegisteredUser entities', () => {
     expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
+  it('should throw error when username is missing', () => {
+    const payload = {
+      id: 'user-123',
+      fullname: 'Dicoding Indonesia',
+    };
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
+  });
+
+  it('should throw error when fullname is missing', () => {
+    const payload = {
+      id: 'user-123',
+      username: 'dicoding',
+    };
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_CONTAIN_NEEDED_PROPERTY');
+  });
+
   it('should throw error when payload did not meet data type specification', () => {
     // Arrange
     const payload = {
@@ -21,6 +37,15 @@ describe('a RegisteredUser entities', () => {
     };
 
     // Action and Assert
+    expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
+  });
+
+  it('should throw error when username is not string', () => {
+    const payload = {
+      id: 'user-123',
+      username: 123,
+      fullname: 'Dicoding Indonesia',
+    };
     expect(() => new RegisteredUser(payload)).toThrowError('REGISTERED_USER.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 

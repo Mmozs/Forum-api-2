@@ -11,6 +11,13 @@ describe('NewAuth entities', () => {
     expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_CONTAIN_NEEDED_PROPERTY');
   });
 
+  it('should throw error when accessToken is missing', () => {
+    const payload = {
+      refreshToken: 'refreshToken',
+    };
+    expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_CONTAIN_NEEDED_PROPERTY');
+  });
+
   it('should throw error when payload not meet data type specification', () => {
     // Arrange
     const payload = {
@@ -19,6 +26,14 @@ describe('NewAuth entities', () => {
     };
 
     // Action & Assert
+    expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION');
+  });
+
+  it('should throw error when accessToken is not string', () => {
+    const payload = {
+      accessToken: 123,
+      refreshToken: 'refreshToken',
+    };
     expect(() => new NewAuth(payload)).toThrowError('NEW_AUTH.NOT_MEET_DATA_TYPE_SPECIFICATION');
   });
 
