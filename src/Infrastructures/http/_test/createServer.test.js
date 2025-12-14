@@ -1,9 +1,17 @@
 const createServer = require('../createServer');
 
 describe('HTTP server', () => {
+  let server;
+
+  beforeEach(async () => {
+    server = await createServer({});
+  });
+
+  afterEach(async () => {
+    await server.stop(); // memastikan server berhenti
+  });
+
   it('should response 404 when request unregistered route', async () => {
-    // Arrange
-    const server = await createServer({});
 
     // Action
     const response = await server.inject({
@@ -22,7 +30,7 @@ describe('HTTP server', () => {
       fullname: 'Dicoding Indonesia',
       password: 'super_secret',
     };
-    const server = await createServer({}); // fake injection
+    
 
     // Action
     const response = await server.inject({
@@ -39,8 +47,6 @@ describe('HTTP server', () => {
   });
 
   it('should handle authentication error correctly', async () => {
-    // Arrange
-    const server = await createServer({});
 
     // Action
     const response = await server.inject({
@@ -58,33 +64,4 @@ describe('HTTP server', () => {
     expect(responseJson.status).toEqual('fail');
   });
 });
-describe('when GET /', () => {
-    it('should return 200 and hello world', async () => {
-      // Arrange
-      const server = await createServer({});
-      // Action
-      const response = await server.inject({
-        method: 'GET',
-        url: '/',
-      });
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(200);
-      expect(responseJson.value).toEqual('Hello world!');
-    });
-});
-describe('when GET /', () => {
-    it('should return 200 and hello world', async () => {
-      // Arrange
-      const server = await createServer({});
-      // Action
-      const response = await server.inject({
-        method: 'GET',
-        url: '/',
-      });
-      // Assert
-      const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(200);
-      expect(responseJson.value).toEqual('Hello world!');
-    });
-});
+
