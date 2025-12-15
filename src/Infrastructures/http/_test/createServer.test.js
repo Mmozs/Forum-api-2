@@ -63,16 +63,17 @@ describe('HTTP server', () => {
     expect(response.statusCode).toEqual(401);
     expect(responseJson.status).toEqual('fail');
   });
-  it('should return server time from GET /time', async () => {
+  
+  it('should return health status from GET /health', async () => {
     const response = await server.inject({
       method: 'GET',
-      url: '/time',
+      url: '/health',
     });
 
     expect(response.statusCode).toEqual(200);
-    const payload = JSON.parse(response.payload);
 
-    expect(payload.time).toBeDefined();
-    expect(typeof payload.time).toEqual('string');
+    const payload = JSON.parse(response.payload);
+    expect(payload.status).toEqual('ok');
+    expect(typeof payload.uptime).toEqual('number');
   });
 });
