@@ -63,9 +63,10 @@ const createServer = async (container) => {
   ]);
   server.route({
       method: 'GET',
-      path: '/time',
+      path: '/health',
       handler: () => ({
-        time: new Date().toISOString(),
+        status: 'ok',
+        uptime: process.uptime(),
       }),
       options: {
         auth: false,
