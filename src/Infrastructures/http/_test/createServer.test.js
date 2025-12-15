@@ -75,4 +75,16 @@ describe('HTTP server', () => {
     expect(payload.time).toBeDefined();
     expect(typeof payload.time).toEqual('string');
   });
+  it('should return health status from GET /health', async () => {
+    const response = await server.inject({
+      method: 'GET',
+      url: '/health',
+    });
+
+    expect(response.statusCode).toEqual(200);
+
+    const payload = JSON.parse(response.payload);
+    expect(payload.status).toEqual('ok');
+    expect(typeof payload.uptime).toEqual('number');
+  });
 });
