@@ -63,9 +63,9 @@ const createServer = async (container) => {
   ]);
   server.route({
       method: 'GET',
-      path: '/',
+      path: '/time',
       handler: () => ({
-        value: 'Hello world!',
+        time: new Date().toISOString(),
       }),
       options: {
         auth: false,
