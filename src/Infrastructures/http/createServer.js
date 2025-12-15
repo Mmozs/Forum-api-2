@@ -62,16 +62,15 @@ const createServer = async (container) => {
     },
   ]);
   server.route({
-      method: 'GET',
-      path: '/health',
-      handler: () => ({
-        status: 'ok',
-        uptime: process.uptime(),
-      }),
-      options: {
-        auth: false,
-      },
-  });
+  method: 'GET',
+  path: '/health',
+  handler: (request, h) => ({
+    status: 'ok'
+  }),
+  options: {
+    auth: false,
+  },
+});
 
   server.ext('onPreResponse', (request, h) => {
     // mendapatkan konteks response dari request
